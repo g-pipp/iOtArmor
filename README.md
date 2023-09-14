@@ -1,2 +1,2 @@
 # iOtArmor
-Senior Project for SEM 498.
+Welcome to the README for our Senior Project for SEM 498.

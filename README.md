@@ -160,9 +160,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+G P - email@email_client.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/g-sparta/iOtArmor](https://github.com/g-sparta/iOtArmor)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

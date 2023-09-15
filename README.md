@@ -26,7 +26,7 @@
 <h3 align="center">IoTArmor</h3>
 
   <p align="center">
-    This project aims to scan a network that is composed of IoT devices in a simulated network. 
+    This project aims to scan a network that is composed of IoT devices in a simulated network and will identify anomalies within the network.
 </div>
 
 

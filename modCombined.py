@@ -12,6 +12,19 @@ ctk.set_default_color_theme("blue")
 
 #class for the home page gui
 
+def monitor(subnet_to_scan):
+		while True:
+			print("STARTING SCAN\n.....................")
+			time.sleep(5)
+			command = ["sudo", "nmap", "-sn", "n", subnet_to_scan]
+			try:
+				result = subprocess.run(command, check=True, capture_output=True, text=True)
+				ip_addresses = re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', result.stdout)
+				return ip_addresses
+			except subprocess.CalledProcessError as e:
+				print(f"Error: {e}")
+				print(f"Commend output: {e.output}")
+				return []
 class TopLevelWindow(ctk.CTkToplevel):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -93,7 +106,7 @@ class TopLevelWindow(ctk.CTkToplevel):
 	def button_activate(self):
 		print("Congrats you clicked a button")
 		#green means it has been investigated and it has been determined to be good
-		discovered_ips = run_nmap_scan(self)
+		discovered_ips = monitor("192.168.99.5/24")
 		if discovered_ips:
 			print("Discovered IP Addresses")
 			for ip in discovered_ips:
@@ -105,19 +118,6 @@ class TopLevelWindow(ctk.CTkToplevel):
 		self.ip_label1.configure(text_color="yellow")
 		self.progressbar.start()
 
-	def monitor(self):
-		while True:
-			print("STARTING SCAN\n.....................")
-			time.sleep(5)
-			command = ["sudo", "nmap", "-sn", "n", self]
-			try:
-				result = subprocess.run(command, check=True, capture_output=True, text=True)
-				ip_addresses = re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', result.stdout)
-				return ip_addresses
-			except subprocess.CalledProcessError as e:
-				print(f"Error: {e}")
-				print(f"Commend output: {e.output}")
-				return []
 
 	#what happens when the active monitoring is turned off
 	def no_button_activate(self):

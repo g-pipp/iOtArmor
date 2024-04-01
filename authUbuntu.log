@@ -1,0 +1,65 @@
+Mar 17 15:56:33 ubuntu1 systemd-logind[597]: New seat seat0.
+Mar 17 15:56:33 ubuntu1 systemd-logind[597]: Watching system buttons on /dev/input/event0 (Power Button)
+Mar 17 15:56:33 ubuntu1 systemd-logind[597]: Watching system buttons on /dev/input/event1 (Sleep Button)
+Mar 17 15:56:33 ubuntu1 systemd-logind[597]: Watching system buttons on /dev/input/event2 (AT Translated Set 2 keyboard)
+Mar 17 15:56:35 ubuntu1 sshd[694]: Server listening on 0.0.0.0 port 22.
+Mar 17 15:56:35 ubuntu1 sshd[694]: Server listening on :: port 22.
+Mar 17 15:56:36 ubuntu1 gdm-launch-environment]: pam_unix(gdm-launch-environment:session): session opened for user gdm(uid=128) by (uid=0)
+Mar 17 15:56:36 ubuntu1 systemd-logind[597]: New session c1 of user gdm.
+Mar 17 15:56:36 ubuntu1 systemd: pam_unix(systemd-user:session): session opened for user gdm(uid=128) by (uid=0)
+Mar 17 15:56:57 ubuntu1 polkitd(authority=local): Registered Authentication Agent for unix-session:c1 (system bus name :1.43 [/usr/bin/gnome-shell], object path /org/freedesktop/PolicyKit1/AuthenticationAgent, locale en_US.UTF-8)
+Mar 17 16:00:53 ubuntu1 dbus-daemon[566]: [system] Failed to activate service 'org.bluez': timed out (service_start_timeout=25000ms)
+Mar 17 16:02:49 ubuntu1 gdm-password]: gkr-pam: unable to locate daemon control file
+Mar 17 16:02:49 ubuntu1 gdm-password]: gkr-pam: stashed password to try later in open session
+Mar 17 16:02:49 ubuntu1 gdm-password]: pam_unix(gdm-password:session): session opened for user bbates(uid=1000) by (uid=0)
+Mar 17 16:02:49 ubuntu1 systemd-logind[597]: New session 2 of user bbates.
+Mar 17 16:02:49 ubuntu1 systemd: pam_unix(systemd-user:session): session opened for user bbates(uid=1000) by (uid=0)
+Mar 17 16:02:50 ubuntu1 gdm-password]: gkr-pam: gnome-keyring-daemon started properly and unlocked keyring
+Mar 17 16:02:53 ubuntu1 gnome-keyring-daemon[1315]: The Secret Service was already initialized
+Mar 17 16:02:53 ubuntu1 gnome-keyring-daemon[1315]: The PKCS#11 component was already initialized
+Mar 17 16:02:53 ubuntu1 gnome-keyring-daemon[1315]: The SSH agent was already initialized
+Mar 17 16:02:59 ubuntu1 polkitd(authority=local): Registered Authentication Agent for unix-session:2 (system bus name :1.82 [/usr/bin/gnome-shell], object path /org/freedesktop/PolicyKit1/AuthenticationAgent, locale en_US.UTF-8)
+Mar 17 16:03:10 ubuntu1 gdm-launch-environment]: pam_unix(gdm-launch-environment:session): session closed for user gdm
+Mar 17 16:03:10 ubuntu1 systemd-logind[597]: Session c1 logged out. Waiting for processes to exit.
+Mar 17 16:03:10 ubuntu1 polkitd(authority=local): Unregistered Authentication Agent for unix-session:c1 (system bus name :1.43, object path /org/freedesktop/PolicyKit1/AuthenticationAgent, locale en_US.UTF-8) (disconnected from bus)
+Mar 17 16:03:10 ubuntu1 systemd-logind[597]: Removed session c1.
+Mar 17 16:03:17 ubuntu1 dbus-daemon[566]: [system] Failed to activate service 'org.bluez': timed out (service_start_timeout=25000ms)
+Mar 17 16:04:12 ubuntu1 pkexec: pam_unix(polkit-1:session): session opened for user root(uid=0) by (uid=1000)
+Mar 17 16:04:12 ubuntu1 pkexec[2066]: bbates: Executing command [USER=root] [TTY=unknown] [CWD=/home/bbates] [COMMAND=/usr/lib/update-notifier/package-system-locked]
+Mar 17 16:10:06 ubuntu1 gdm-password]: gkr-pam: unlocked login keyring
+Mar 17 16:10:42 ubuntu1 sudo:   bbates : TTY=pts/0 ; PWD=/home/bbates ; USER=root ; COMMAND=/usr/bin/wireshark
+Mar 17 16:10:42 ubuntu1 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+Mar 17 16:14:05 ubuntu1 sshd[2493]: error: kex_exchange_identification: Connection closed by remote host
+Mar 17 16:14:05 ubuntu1 sshd[2493]: Connection closed by 192.168.99.2 port 60685
+Mar 17 16:14:05 ubuntu1 sshd[2494]: error: kex_exchange_identification: Connection closed by remote host
+Mar 17 16:14:05 ubuntu1 sshd[2494]: Connection closed by 192.168.99.6 port 49949
+Mar 17 16:14:05 ubuntu1 sshd[2496]: error: kex_exchange_identification: banner line contains invalid characters
+Mar 17 16:14:05 ubuntu1 sshd[2496]: error: send_error: write: Connection reset by peer
+Mar 17 16:14:05 ubuntu1 sshd[2496]: banner exchange: Connection from 192.168.99.6 port 50159: invalid format
+Mar 17 16:14:05 ubuntu1 sshd[2497]: error: kex_exchange_identification: client sent invalid protocol identifier "HEAD / HTTP/1.1"
+Mar 17 16:14:05 ubuntu1 sshd[2497]: banner exchange: Connection from 192.168.99.6 port 50160: invalid format
+Mar 17 16:16:05 ubuntu1 sshd[2506]: Invalid user bbates1 from 192.168.99.6 port 53988
+Mar 17 16:16:05 ubuntu1 sshd[2506]: pam_unix(sshd:auth): check pass; user unknown
+Mar 17 16:16:05 ubuntu1 sshd[2506]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=192.168.99.6 
+Mar 17 16:16:07 ubuntu1 sshd[2506]: Failed password for invalid user bbates1 from 192.168.99.6 port 53988 ssh2
+Mar 17 16:16:07 ubuntu1 sshd[2506]: Connection closed by invalid user bbates1 192.168.99.6 port 53988 [preauth]
+Mar 17 16:16:07 ubuntu1 sshd[2508]: Invalid user bbates1 from 192.168.99.6 port 53989
+Mar 17 16:16:08 ubuntu1 sshd[2508]: pam_unix(sshd:auth): check pass; user unknown
+Mar 17 16:16:08 ubuntu1 sshd[2508]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=192.168.99.6 
+Mar 17 16:16:09 ubuntu1 sshd[2508]: Failed password for invalid user bbates1 from 192.168.99.6 port 53989 ssh2
+Mar 17 16:16:10 ubuntu1 sshd[2508]: Connection closed by invalid user bbates1 192.168.99.6 port 53989 [preauth]
+Mar 17 16:16:10 ubuntu1 sshd[2510]: Accepted password for bbates from 192.168.99.6 port 53990 ssh2
+Mar 17 16:16:10 ubuntu1 sshd[2510]: pam_unix(sshd:session): session opened for user bbates(uid=1000) by (uid=0)
+Mar 17 16:16:11 ubuntu1 systemd-logind[597]: New session 4 of user bbates.
+Mar 17 16:16:19 ubuntu1 sshd[2510]: pam_unix(sshd:session): session closed for user bbates
+Mar 17 16:16:19 ubuntu1 systemd-logind[597]: Session 4 logged out. Waiting for processes to exit.
+Mar 17 16:16:37 ubuntu1 sshd[2747]: error: kex_exchange_identification: Connection closed by remote host
+Mar 17 16:16:37 ubuntu1 sshd[2747]: Connection closed by 192.168.99.2 port 60734
+Mar 17 16:17:01 ubuntu1 CRON[2883]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Mar 17 16:17:01 ubuntu1 CRON[2883]: pam_unix(cron:session): session closed for user root
+Mar 17 16:17:49 ubuntu1 systemd-logind[597]: Removed session 4.
+Mar 17 16:30:01 ubuntu1 CRON[3155]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Mar 17 16:30:01 ubuntu1 CRON[3155]: pam_unix(cron:session): session closed for user root
+Mar 17 16:30:34 ubuntu1 sudo:   bbates : TTY=pts/0 ; PWD=/home/bbates ; USER=root ; COMMAND=/usr/bin/cat /var/log/auth.log
+Mar 17 16:30:34 ubuntu1 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+

@@ -5,6 +5,7 @@ import tkinter.messagebox as tkmb
 import re
 import time
 import threading as thread
+import tkinter as tk
 
 
 ctk.set_appearance_mode("dark") 
@@ -50,14 +51,14 @@ class TopLevelWindow(ctk.CTkToplevel):
 		self.active_button = ctk.CTkButton(self,fg_color="cadetblue4" , command=self.button_activate, text="Activate Monitoring")
 		self.active_button.place(x=0, y=250)
 		self.active_button.configure(font=('Nirmala UI', 30), height = 100, width = 500)
-		
+	
 		self.no_active_button = ctk.CTkButton(self,fg_color="cadetblue4" , command=self.no_button_activate, text="Stop Monitoring")
 		self.no_active_button.place(x=0, y=380)
 		self.no_active_button.configure(font=('Nirmala UI', 30), height = 100, width = 500)
 
-		self.button = ctk.CTkButton(self, fg_color="cadetblue4" , command=self.button_press, text="Review Logs")
-		self.button.place(x=0, y=500)
-		self.button.configure(font=('Nirmala UI', 30), height = 100, width = 500)
+		self.start_button = ctk.CTkButton(self,fg_color="Yellow" , command=self.start_capture, text="Start Capture") #for packetsniffing
+		self.start_button.place(x=0, y=500)
+		self.start_button.configure(font=('Nirmala UI', 30), height = 100, width = 500)
 
 		self.close_button = ctk.CTkButton(self, fg_color="cadetblue4" ,command=self.close, text="Exit")
 		self.close_button.place(x=0, y=650)
@@ -82,9 +83,9 @@ class TopLevelWindow(ctk.CTkToplevel):
 		self.enterip.place(x=500, y=100)
 		self.enterip.configure(font=('Nirmala UI', 30))
 
-		self.add_button = ctk.CTkButton(self, fg_color="cadetblue4" ,command=self.button_add, text="Add IP Address")
-		self.add_button.place(x=530, y=250)
-		self.add_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
+		self.stop_button = ctk.CTkButton(self,fg_color="Yellow" , command=self.stop_capture, text="Stop Capture") #for packetsniffing
+		self.stop_button.place(x=530, y=250)
+		self.stop_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
 
 		self.progressbar = ctk.CTkProgressBar(self, width=800, height=100 ,orientation="horizontal")
 		self.progressbar.place(x=530, y=650)
@@ -95,7 +96,6 @@ class TopLevelWindow(ctk.CTkToplevel):
 
 	#only does it when button pressed...must change to where button doesnt need to be pressed and stops when pressed again
 	def monitor(self, subnet_to_scan, stop_event):
-		scan_count = 0
 		while not stop_event.is_set():
 			print("STARTING SCAN\n.....................")
 			command = ["nmap", "-sn", "n", subnet_to_scan]
@@ -114,17 +114,30 @@ class TopLevelWindow(ctk.CTkToplevel):
 				print(f"Commend output: {e.output}")
 			time.sleep(1)
 	#Packet capture function goes here
+	def capture(self):
+		app_PATH = 'C:\\Program Files\\Wireshark\\tshark'
+		interface = 'Wi-Fi'
+		wrTo_File_PATH = "C:\\Users\\braxm\\OneDrive\\Documents\\captured_packets.pcap"
+		self.capture_process = subprocess.Popen([app_PATH, "-i", interface, "-w", wrTo_File_PATH])
+		self.capture_process.wait()
+		self.start_button.configure(state=tk.NORMAL)
 			
-
 	#Start capture fucntion goes here
+	def start_capture(self):
+		self.start_button.configure(state=tk.DISABLED)
+		self.stop_button.configure(state=tk.NORMAL)
+		self.capture_thread = thread.Thread(target=self.capture)
+		self.capture_thread.start()
 			
 	#Stop capture function goes here 
+	def stop_capture(self):
+		self.stop_button.configure(state=tk.DISABLED)
+		self.capture_process.terminate()
+		print('Finsihed capture')
 			
 	#machine learning function goes here
 			
 	# ^ these are the last things along with the list of IPs on the screen to implement!
-
-
 	def button_activate(self):
 		print("Congrats you clicked a button")
 		#green means it has been investigated and it has been determined to be good
@@ -134,14 +147,7 @@ class TopLevelWindow(ctk.CTkToplevel):
 		self.stop_event = thread.Event()
 		self.monitor_thread = thread.Thread(target=self.monitor, args=(subnet_to_scan, self.stop_event))
 		self.monitor_thread.start()
-
-		self.ip_label.configure(text_color="green")
-		#red means it is has been investigated and has been determined to be bad
-		self.ip_label2.configure(text_color="red")
-		#yellow means it is being investigated
-		self.ip_label1.configure(text_color="yellow")
 		self.progressbar.start()
-
 
 	#what happens when the active monitoring is turned off
 	def no_button_activate(self):
@@ -215,3 +221,13 @@ class App(ctk.CTk):
 if __name__ == "__main__":
 	app = App()
 	app.mainloop()
+
+'''
+COLORS BELOW
+		self.ip_label.configure(text_color="green")
+		#red means it is has been investigated and has been determined to be bad
+		self.ip_label2.configure(text_color="red")
+		#yellow means it is being investigated
+		self.ip_label1.configure(text_color="yellow")
+		self.progressbar.start()
+'''

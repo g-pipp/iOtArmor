@@ -15,7 +15,7 @@ import pandas as pd
 #from CTkListbox import *
 
 ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+ctk.set_default_color_theme("green")
 
 
 ##if you get stuck on the signin page press alt+f4
@@ -49,15 +49,16 @@ class TopLevelWindow(ctk.CTkToplevel):
         self.ml_button.place(x=0, y=650)
         self.ml_button.configure(font=('Nirmala UI', 30), height=100, width=400)
 
-        self.active_button = ctk.CTkButton(self, fg_color="cadetblue4", command=self.button_activate,
+        self.active_button = ctk.CTkButton(self, fg_color="skyblue4", command=self.button_activate,
                                            text="Start Monitoring")
         self.active_button.place(x=0, y=100)
         self.active_button.configure(font=('Nirmala UI', 30), height=100, width=400)
 
-        self.no_active_button = ctk.CTkButton(self, fg_color="cadetblue4", command=self.no_button_activate,
+        self.no_active_button = ctk.CTkButton(self, fg_color="skyblue4", command=self.no_button_activate,
                                               text="Stop Monitoring")
         self.no_active_button.place(x=0, y=250)
         self.no_active_button.configure(font=('Nirmala UI', 30), height=100, width=400)
+        self.no_active_button.configure(state=tk.DISABLED)
 
         self.start_button = ctk.CTkButton(self, fg_color="cadetblue4", command=self.start_capture,
                                           text="Start Capture")  # for packetsniffing
@@ -68,16 +69,12 @@ class TopLevelWindow(ctk.CTkToplevel):
                                          text="Stop Capture")  # for packetsniffing
         self.stop_button.place(x=0, y=500)
         self.stop_button.configure(font=('Nirmala UI', 30), height=100, width=400)
+        self.stop_button.configure(state=tk.DISABLED)
 
         self.close_button = ctk.CTkButton(self, fg_color="cadetblue4" ,command=self.close, text="Exit")
         self.close_button.place(x=530, y=250)
         self.close_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
 
-        # self.textbox = ctk.CTkTextbox(self, width=350, height=520)
-        # self.textbox.place(x=1000, y=100)
-        self.notelabel = ctk.CTkLabel(self, text="Active IP Addresses", width=120, height=25, corner_radius=20,
-                                      font=('Nirmala UI', 30))
-        self.notelabel.place(x=1000, y=30)
         # self.add_button = ctk.CTkButton(self, fg_color="cadetblue4" ,command=self.button_add, text="Update IP Address")
         # self.add_button.place(x=530, y=150)
         # self.add_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
@@ -104,7 +101,7 @@ class TopLevelWindow(ctk.CTkToplevel):
         self.void = ctk.CTkLabel(self, text="STATUS", font=('Consolas', 70))
         self.void.place(x=610, y=400)
         self.status_label = ctk.CTkLabel(self, text=" ", font=('Terminal', 32))
-        self.status_label.place(x=500, y=530)
+        self.status_label.place(x=490, y=530)
         '''self.void1 = ctk.CTkLabel(self, text="and trusting us to keep", font=('Nirmala UI', 32))
         self.void1.place(x=580, y=480)
         self.void2 = ctk.CTkLabel(self, text="your network safe", font=('Nirmala UI', 32))
@@ -129,7 +126,7 @@ class TopLevelWindow(ctk.CTkToplevel):
     # only does it when button pressed...must change to where button doesnt need to be pressed and stops when pressed again
     def monitor(self, subnet_to_scan, stop_event):
         while not stop_event.is_set():
-            self.status_label.configure(text="Scanning for IP's...")
+            self.status_label.configure(text="Scanning for IP's...", font=('Terminal', 30))
             print("STARTING SCAN\n.....................")
             command = ["nmap", "-sn", "n", subnet_to_scan]
             try:
@@ -152,7 +149,7 @@ class TopLevelWindow(ctk.CTkToplevel):
 
     # Packet capture function goes here
     def capture(self):
-        self.status_label.configure(text="Starting Wireshark Scan...")
+        self.status_label.configure(text="Starting Wireshark Scan...", font=('Terminal', 30))
         app_PATH = 'C:\\Program Files\\Wireshark\\tshark'
         interface = 'Wi-Fi'
         wrTo_File_PATH = "C:\\iotArmor\\captured_packets.pcap"
@@ -162,7 +159,7 @@ class TopLevelWindow(ctk.CTkToplevel):
 
     # Start capture fucntion goes here
     def start_capture(self):
-        self.status_label.configure(text="Starting Capture...")
+        self.status_label.configure(text="Starting Capture...", font=('Terminal', 32))
         self.start_button.configure(state=tk.DISABLED)
         self.stop_button.configure(state=tk.NORMAL)
         self.capture_thread = thread.Thread(target=self.capture)
@@ -170,7 +167,7 @@ class TopLevelWindow(ctk.CTkToplevel):
 
     # Stop capture function goes here
     def stop_capture(self):
-        self.status_label.configure(text="Capture Finished")
+        self.status_label.configure(text="Capture Finished", font=('Terminal', 32))
         self.stop_button.configure(state=tk.DISABLED)
         self.capture_process.terminate()
         print('Finsihed capture')
@@ -195,7 +192,7 @@ class TopLevelWindow(ctk.CTkToplevel):
 
         SRC_encoder = LabelEncoder()
         DEST_encoder = LabelEncoder()
-        self.status_label.configure(text="machine learning!!")
+        self.status_label.configure(text="Starting Machine Learning...")
         dfdemo = self.preprocessData(dfdemo, SRC_encoder, DEST_encoder)
         print(dfdemo)
         self.prediction(dfdemo, SRC_encoder)
@@ -285,7 +282,8 @@ class TopLevelWindow(ctk.CTkToplevel):
         print("Congrats you clicked a button")
         # green means it has been investigated and it has been determined to be good
         subnet_to_scan = self.enterip.get()
-
+        self.active_button.configure(state=tk.DISABLED)
+        self.no_active_button.configure(state=tk.NORMAL)
         # Create an Event object to signal when to stop monitoring (thank you Dr. Humphries...)
         self.stop_event = thread.Event()
         self.monitor_thread = thread.Thread(target=self.monitor, args=(subnet_to_scan, self.stop_event))

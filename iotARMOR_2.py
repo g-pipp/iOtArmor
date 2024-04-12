@@ -69,9 +69,9 @@ class TopLevelWindow(ctk.CTkToplevel):
         self.stop_button.place(x=0, y=500)
         self.stop_button.configure(font=('Nirmala UI', 30), height=100, width=400)
 
-        # self.close_button = ctk.CTkButton(self, fg_color="cadetblue4" ,command=self.close, text="Exit")
-        # self.close_button.place(x=530, y=250)
-        # self.close_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
+        self.close_button = ctk.CTkButton(self, fg_color="cadetblue4" ,command=self.close, text="Exit")
+        self.close_button.place(x=530, y=250)
+        self.close_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
 
         # self.textbox = ctk.CTkTextbox(self, width=350, height=520)
         # self.textbox.place(x=1000, y=100)
@@ -81,6 +81,13 @@ class TopLevelWindow(ctk.CTkToplevel):
         # self.add_button = ctk.CTkButton(self, fg_color="cadetblue4" ,command=self.button_add, text="Update IP Address")
         # self.add_button.place(x=530, y=150)
         # self.add_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
+
+        self.my_frame = ctk.CTkScrollableFrame(self, orientation="vertical", 
+                                                       width=350, height=420, label_text="Active IP Addresses")
+        self.my_frame.place(x=1000, y=100)
+
+        #for x in range(20):
+            #ctk.CTkLabel(self.my_frame, text="IP Address!").pack(pady=10)
 
         '''
         self.listbox = CTkListbox(self, width=350, height=520)
@@ -133,6 +140,9 @@ class TopLevelWindow(ctk.CTkToplevel):
                 if ip_addresses:
                     print("Discovered IP Addresses")
                     for ip in ip_addresses:
+                        iplabel = ctk.CTkLabel(self.my_frame, text=ip)
+                        iplabel.pack(pady=10)
+                        #ctk.CTkLabel(self.my_frame, text="IP Address!").pack(pady=10)
                         print(ip)
 
             except subprocess.CalledProcessError as e:

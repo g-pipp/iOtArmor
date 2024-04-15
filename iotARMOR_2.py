@@ -1,4 +1,3 @@
-import os
 import subprocess
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
@@ -12,7 +11,6 @@ from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 
 # Replace 'path/to/your/model.joblib' with the actual path to your model file
-#from CTkListbox import *
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
@@ -43,29 +41,28 @@ class TopLevelWindow(ctk.CTkToplevel):
         self.title_label.place(x=115, y=0)
         self.title_label.configure(font=('Rog Fonts', 20))
 
-        # self.label = ctk.CTkLabel(self, text="Active IP Addresses", width=120, height=25, corner_radius=10)
-        self.ml_button = ctk.CTkButton(self, fg_color="cadetblue4", command=self.start_machine_learning,
+        self.ml_button = ctk.CTkButton(self, fg_color="darkseagreen4", command=self.start_machine_learning,
                                        text="Start Network Shield")
         self.ml_button.place(x=0, y=650)
         self.ml_button.configure(font=('Nirmala UI', 30), height=100, width=400)
 
-        self.active_button = ctk.CTkButton(self, fg_color="skyblue4", command=self.button_activate,
+        self.active_button = ctk.CTkButton(self, fg_color="darkseagreen2", command=self.button_activate,
                                            text="Start Monitoring")
         self.active_button.place(x=0, y=100)
         self.active_button.configure(font=('Nirmala UI', 30), height=100, width=400)
 
-        self.no_active_button = ctk.CTkButton(self, fg_color="skyblue4", command=self.no_button_activate,
+        self.no_active_button = ctk.CTkButton(self, fg_color="darkseagreen2", command=self.no_button_activate,
                                               text="Stop Monitoring")
         self.no_active_button.place(x=0, y=250)
         self.no_active_button.configure(font=('Nirmala UI', 30), height=100, width=400)
         self.no_active_button.configure(state=tk.DISABLED)
 
-        self.start_button = ctk.CTkButton(self, fg_color="cadetblue4", command=self.start_capture,
+        self.start_button = ctk.CTkButton(self, fg_color="darkseagreen3", command=self.start_capture,
                                           text="Start Capture")  # for packetsniffing
         self.start_button.place(x=0, y=380)
         self.start_button.configure(font=('Nirmala UI', 30), height=100, width=400)
 
-        self.stop_button = ctk.CTkButton(self, fg_color="cadetblue4", command=self.stop_capture,
+        self.stop_button = ctk.CTkButton(self, fg_color="darkseagreen3", command=self.stop_capture,
                                          text="Stop Capture")  # for packetsniffing
         self.stop_button.place(x=0, y=500)
         self.stop_button.configure(font=('Nirmala UI', 30), height=100, width=400)
@@ -79,29 +76,17 @@ class TopLevelWindow(ctk.CTkToplevel):
         # self.add_button.place(x=530, y=150)
         # self.add_button.configure(font=('Nirmala UI', 30), height = 100, width = 400)
 
-        self.my_frame = ctk.CTkScrollableFrame(self, orientation="vertical", 
-                                                       width=350, height=420, label_text="Active IP Addresses")
+        self.my_frame = ctk.CTkScrollableFrame(self, orientation="vertical", width=350, height=420, 
+                                               label_text="Active IP Addresses", label_text_color="gold", label_font=('Berlin Sans FB', 30))
         self.my_frame.place(x=1000, y=100)
 
         #for x in range(20):
             #ctk.CTkLabel(self.my_frame, text="IP Address!").pack(pady=10)
 
-        '''
-        self.listbox = CTkListbox(self, width=350, height=520)
-        self.listbox.place(x=1000, y=100)
-
-        self.listbox.insert(1, "IP 1")
-        self.listbox.insert(2, "IP 2")
-        self.listbox.insert(3, "IP 3")
-        self.listbox.insert(4, "IP 4")
-        self.listbox.insert(5, "IP 5")
-        self.listbox.insert(6, "IP 6")
-        '''
-
         self.void = ctk.CTkLabel(self, text="STATUS", font=('Consolas', 70))
         self.void.place(x=610, y=400)
         self.status_label = ctk.CTkLabel(self, text=" ", font=('Terminal', 32))
-        self.status_label.place(x=490, y=530)
+        self.status_label.place(x=500, y=530)
         '''self.void1 = ctk.CTkLabel(self, text="and trusting us to keep", font=('Nirmala UI', 32))
         self.void1.place(x=580, y=480)
         self.void2 = ctk.CTkLabel(self, text="your network safe", font=('Nirmala UI', 32))
@@ -116,7 +101,7 @@ class TopLevelWindow(ctk.CTkToplevel):
         self.enterip.place(x=500, y=100)
         self.enterip.configure(font=('Nirmala UI', 30))
 
-        self.progressbar = ctk.CTkProgressBar(self, width=800, height=100, orientation="horizontal")
+        self.progressbar = ctk.CTkProgressBar(self, width=800, height=90, orientation="horizontal")
         self.progressbar.place(x=530, y=650)
         self.progressbar.set(0)
 
@@ -169,6 +154,7 @@ class TopLevelWindow(ctk.CTkToplevel):
     def stop_capture(self):
         self.status_label.configure(text="Capture Finished", font=('Terminal', 32))
         self.stop_button.configure(state=tk.DISABLED)
+        self.start_button.configure(state=tk.NORMAL)
         self.capture_process.terminate()
         print('Finsihed capture')
 
